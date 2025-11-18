@@ -1,5 +1,7 @@
 #' Fit Hierarchical Nested Regularization Model (hierNest)
-#'
+#' @importFrom stats runif
+#' @importFrom plotly plot_ly
+#' @importFrom rTensor khatri_rao
 #' @description
 #' Fits a hierarchical nested penalized regression model for subgroup-specific effects using
 #' overlapping group lasso penalties. This function encodes the hierarchical structure (e.g., MDC and DRG)
@@ -43,20 +45,14 @@
 #'
 #' @examples
 #' # Example with toy data
-#' set.seed(123)
-#' n <- 60; p <- 4
-#' x <- matrix(rnorm(n * p), n, p)
-#' y <- rbinom(n, 1, plogis(x[,1] - 0.5*x[,2]))
-#' # Create toy hier_info: 2 groups, 3 subgroups in each
-#' hier_info <- cbind(rep(1:2, each=n/2), rep(1:4, each = n/4))
-#' library(rTensor)
-#' fit1=hierNest::hierNest(x,y,method="overlapping",  ## Overlapping group lasso method
-#'                       hier_info=hier_info,  ## Should input the hierarchical information for the groups
-#'                       random_asparse = FALSE,  ## Randomly draw the other two tuning parameter?
-#'                       nlambda=100, asparse1 = rep(1,100), 
-#'                       asparse2 = rep(1,100), intercept = FALSE,  ## Set intercept = FALSE can potentially save a huge amount of time
-#'                       family="binomial")
-#'
+#'library(hierNest)
+#'data("example_data")
+#'fit = hierNest(example_data$X,
+#'               example_data$Y,
+#'               hier_info=example_data$hier_info,
+#'               family="binomial",
+#'               asparse1 = 1,
+#'               asparse2 = 1)
 #' @export
 #' 
 hierNest = function(x, y, 
@@ -112,7 +108,7 @@ hierNest = function(x, y,
       
       p=NCOL(x)
       
-      design=(t(khatri_rao(t(iden_matrix),t(cbind(matrix(rep(1,NROW(x)),ncol = 1),x)))))
+      design=(t(rTensor::khatri_rao(t(iden_matrix),t(cbind(matrix(rep(1,NROW(x)),ncol = 1),x)))))
       
       
       

@@ -26,9 +26,9 @@ Authors@R: c(
   )
 Description: Efficient implementation of penalized regression with hierarchical nested parametrization for grouped data.
 License: GPL (>= 2)
-Depends: R (>= 3.5), rTensor, plotly
+Depends: R (>= 3.5),
 Imports: cli, dotCall64, ggplot2, magrittr, Matrix, methods, rlang,
-        RSpectra, tidyr, rTensor, pROC, rTensor, plotly
+        RSpectra, tidyr, rTensor, pROC, plotly
 Suggests: dplyr, gglasso, glmnet, knitr, markdown, rmarkdown, splines,
         testthat (>= 3.0.0)
 VignetteBuilder: knitr
@@ -38,7 +38,7 @@ LazyData: true
 NeedsCompilation: yes
 RoxygenNote: 7.3.1
 Maintainer: Ziren Jiang <jian0746@umn.edu>
-Packaged: 2025-11-11 15:23:25 UTC; 12805
+Packaged: 2025-11-18 04:08:53 UTC; 12805
 Author: Ziren Jiang [aut, cre],
   Jared Huling [aut],
   Jue Hou [aut],

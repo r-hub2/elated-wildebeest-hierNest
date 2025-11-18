@@ -120,15 +120,24 @@ Cross-validation is used to select tuning parameters, optionally over a grid for
 (asparse1, asparse2), and the regularization parameter lambda.
 }
 \examples{
-# Simulated data:
-set.seed(123)
-n <- 60; p <- 4
-x <- matrix(rnorm(n * p), n, p)
-y <- rbinom(n, 1, plogis(x[,1] - 0.5*x[,2]))
-# Create toy hier_info: 2 groups, 3 subgroups in each
-hier_info <- cbind(rep(1:2, each=n/2), rep(1:4, each = n/4))
-library(rTensor)
-cv.fit=hierNest::cv.hierNest(x,y,method="overlapping", hier_info=hier_info,  cvmethod = "general",intercept = FALSE,family="binomial")
+library(hierNest)
+data("example_data")
+cv.fit=cv.hierNest(example_data$X,
+                  example_data$Y,
+                  method="overlapping",
+                  hier_info=example_data$hier_info,
+                  family="binomial",
+                  partition = "subgroup", 
+                  cvmethod = "grid_search", 
+                  # Input the upper and lower bounds of alpha_1 and alpha_2
+                  asparse1 = c(0.5,20), 
+                  asparse2 = c(0.05,0.20), 
+                  # number of grids for alpha_1 and alpha_2, total 3*3 = 9 grids will be screened
+                  asparse1_num = 3, 
+                  asparse2_num = 3, 
+                  # length of lambda sequence for each pair of alpha_1 and alpha_2
+                  nlambda = 50
+)
 }
 \references{
 Jiang, Z., Huo, L., Hou, J., & Huling, J. D.

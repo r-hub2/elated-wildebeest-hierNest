@@ -84,20 +84,14 @@ using overlapping group lasso, as described in Jiang et al. (2024, submitted). T
 }
 \examples{
 # Example with toy data
-set.seed(123)
-n <- 60; p <- 4
-x <- matrix(rnorm(n * p), n, p)
-y <- rbinom(n, 1, plogis(x[,1] - 0.5*x[,2]))
-# Create toy hier_info: 2 groups, 3 subgroups in each
-hier_info <- cbind(rep(1:2, each=n/2), rep(1:4, each = n/4))
-library(rTensor)
-fit1=hierNest::hierNest(x,y,method="overlapping",  ## Overlapping group lasso method
-                      hier_info=hier_info,  ## Should input the hierarchical information for the groups
-                      random_asparse = FALSE,  ## Randomly draw the other two tuning parameter?
-                      nlambda=100, asparse1 = rep(1,100), 
-                      asparse2 = rep(1,100), intercept = FALSE,  ## Set intercept = FALSE can potentially save a huge amount of time
-                      family="binomial")
-
+library(hierNest)
+data("example_data")
+fit = hierNest(example_data$X,
+              example_data$Y,
+              hier_info=example_data$hier_info,
+              family="binomial",
+              asparse1 = 1,
+              asparse2 = 1)
 }
 \references{
 Jiang, Z., Huo, L., Hou, J., Vaughan-Sarrazin, M., Smith, M. A., & Huling, J. D. (2024).

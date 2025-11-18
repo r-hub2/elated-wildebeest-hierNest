@@ -63,7 +63,7 @@ plot.cv.hierNest <- function(x, type = c("coefficients","Subgroup effects"),...)
     
     col_labels = colnames(beta_set_nonzero)
     
-    plotobj = plot_ly(
+    plotobj = plotly::plot_ly(
       data = df,
       x = ~col,          # same direction as ggplot
       y = ~row,
@@ -140,7 +140,7 @@ plot.cv.hierNest <- function(x, type = c("coefficients","Subgroup effects"),...)
     
     col_labels = colnames(beta_set_nonzero)
     
-    plotobj = plot_ly(
+    plotobj = plotly::plot_ly(
       data = df,
       x = ~col,          # same direction as ggplot
       y = ~row,
